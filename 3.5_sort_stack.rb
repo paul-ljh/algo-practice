@@ -2,10 +2,9 @@ require './3_stack'
 
 def sort_stack(s)
   return s if s.is_empty?
-  tmp_s = s
   tmp = Stack.new
-  while !tmp_s.is_empty? do
-    item = tmp_s.pop
+  while !s.is_empty? do
+    item = s.pop
     iterative_insert(item, tmp)
   end
   return tmp
