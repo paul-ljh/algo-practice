@@ -10,6 +10,7 @@ class Stack
 
   def push(data)
     new_top = StackNode.new(data, @top)
+    new_top.next = @top
     @top = new_top
     @length += 1
   end
