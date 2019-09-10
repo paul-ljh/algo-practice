@@ -1,4 +1,4 @@
-require './3_stack'
+require '../3_stack'
 
 def sort_stack(s)
   return s if s.is_empty?

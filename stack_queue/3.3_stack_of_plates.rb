@@ -1,4 +1,4 @@
-require './3_stack'
+require '../3_stack'
 
 class NestedStack
   LIMIT = 2

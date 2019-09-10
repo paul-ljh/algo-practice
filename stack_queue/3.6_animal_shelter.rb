@@ -1,4 +1,4 @@
-load '3_queue.rb'
+load '../3_queue.rb'
 
 class Animal
   attr_reader :type, :arrival
