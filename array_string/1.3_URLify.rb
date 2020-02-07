@@ -19,9 +19,9 @@ def URLify(str, len)
 end
 
 def test
-  puts "input PAUL, 4 renders #{URLify("PAUL", 4)}"
-  puts "input  PAUL     , 6 renders #{URLify(" PAUL     ", 6)}"
-  puts "input    , 1 renders #{URLify("   ", 1)}"
-  puts "input  P A UL      , 7 renders #{URLify(" P A UL      ", 7)}"
+  puts "PAUL, 4 renders #{URLify("PAUL", 4)}"
+  puts " PAUL     , 6 renders #{URLify(" PAUL     ", 6)}"
+  puts "   , 1 renders #{URLify("   ", 1)}"
+  puts " P A UL      , 7 renders #{URLify(" P A UL      ", 7)}"
 end
       
