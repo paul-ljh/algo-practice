@@ -1,5 +1,5 @@
 class LinkedList
-  attr_accessor :head
+  attr_accessor :head, :length
 
   class Node
     attr_accessor :data, :next_node
@@ -11,13 +11,20 @@ class LinkedList
   end
 
   def initialize(data=nil)
-    @head = data.nil? ? nil : Node.new(data)
+    if data.nil? 
+      @head = nil
+      @length = 0
+    else
+      @head = Node.new(data)
+      @length = 1
+    end
   end
 
   def append_to_tail(data)
     new_node = Node.new(data)
     if @head.nil?
-      @head = new_node 
+      @head = new_node
+      @length += 1
       return
     end
 
@@ -26,18 +33,21 @@ class LinkedList
       n = n.next_node
     end
     n.next_node = new_node
+    @length += 1
   end
 
   def delete_node(data)
     n = @head
     if n.data == data
       @head = n.next_node
+      @length -= 1
       return data
     end
 
     while !n.next_node.nil?
       if n.next_node.data == data
         n.next_node = n.next_node.next_node
+        @length -= 1
         return data
       end
       n = n.next_node
@@ -54,13 +64,20 @@ def test
   l1.append_to_tail(3)
   l1.append_to_tail(4)
   puts "L1 Head is 5? #{l1.head.data == 5 ? "Pass" : "Fail"}"
+  puts "L1 length is 4? #{l1.length == 4 ? "Pass" : "Fail"}"
+
+  l1.delete_node(2)
+  puts "L1 length is 4? #{l1.length == 4 ? "Pass" : "Fail"}"
 
   l1.delete_node(5)
   puts "L1 Head is 4? #{l1.head.data == 4 ? "Pass" : "Fail"}"
   l1.delete_node(3)
   puts "L1 Head is 4? #{l1.head.data == 4 ? "Pass" : "Fail"}"
+  puts "L1 length is 2? #{l1.length == 2 ? "Pass" : "Fail"}"
+
   l1.delete_node(4)
   puts "L1 Head is 4? #{l1.head.data == 4 ? "Pass" : "Fail"}"
   l1.delete_node(4)
   puts "L1 Head is nil? #{l1.head.nil? ? "Pass" : "Fail"}"
+  puts "L1 length is 0? #{l1.length == 0 ? "Pass" : "Fail"}"
 end
