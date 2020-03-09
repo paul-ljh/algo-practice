@@ -1,14 +1,14 @@
+class Node
+  attr_accessor :data, :next_node
+
+  def initialize(data, next_node=nil)
+    @data = data
+    @next_node = next_node
+  end
+end
+
 class LinkedList
   attr_accessor :head, :length
-
-  class Node
-    attr_accessor :data, :next_node
-
-    def initialize(data, next_node=nil)
-      @data = data
-      @next_node = next_node
-    end
-  end
 
   def initialize(data=nil)
     if data.nil? 
@@ -53,31 +53,49 @@ class LinkedList
       n = n.next_node
     end
   end
+
+  def print_list
+    h = @head
+    while !h.nil? do
+      print "#{h.data}->"
+      h = h.next_node
+    end
+    puts "nil"
+  end
 end
 
 def test
   l1 = LinkedList.new()
   l1.append_to_tail(5)
   puts "L1 Head is 5? #{l1.head.data == 5 ? "Pass" : "Fail"}"
+  l1.print_list()
 
   l1.append_to_tail(4)
   l1.append_to_tail(3)
   l1.append_to_tail(4)
   puts "L1 Head is 5? #{l1.head.data == 5 ? "Pass" : "Fail"}"
   puts "L1 length is 4? #{l1.length == 4 ? "Pass" : "Fail"}"
+  l1.print_list()
 
   l1.delete_node(2)
   puts "L1 length is 4? #{l1.length == 4 ? "Pass" : "Fail"}"
+  l1.print_list()
 
   l1.delete_node(5)
   puts "L1 Head is 4? #{l1.head.data == 4 ? "Pass" : "Fail"}"
+  l1.print_list()
+
   l1.delete_node(3)
   puts "L1 Head is 4? #{l1.head.data == 4 ? "Pass" : "Fail"}"
   puts "L1 length is 2? #{l1.length == 2 ? "Pass" : "Fail"}"
+  l1.print_list()
 
   l1.delete_node(4)
   puts "L1 Head is 4? #{l1.head.data == 4 ? "Pass" : "Fail"}"
+  l1.print_list()
+
   l1.delete_node(4)
   puts "L1 Head is nil? #{l1.head.nil? ? "Pass" : "Fail"}"
   puts "L1 length is 0? #{l1.length == 0 ? "Pass" : "Fail"}"
+  l1.print_list()
 end
