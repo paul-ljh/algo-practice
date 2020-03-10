@@ -55,12 +55,14 @@ class LinkedList
   end
 
   def print_list
+    print_msg = ''
     h = @head
     while !h.nil? do
-      print "#{h.data}->"
+      print_msg << "#{h.data}->"
       h = h.next_node
     end
-    puts "nil"
+    print_msg << "nil"
+    return print_msg
   end
 end
 
@@ -68,34 +70,34 @@ def test
   l1 = LinkedList.new()
   l1.append_to_tail(5)
   puts "L1 Head is 5? #{l1.head.data == 5 ? "Pass" : "Fail"}"
-  l1.print_list()
+  l1.print_list
 
   l1.append_to_tail(4)
   l1.append_to_tail(3)
   l1.append_to_tail(4)
   puts "L1 Head is 5? #{l1.head.data == 5 ? "Pass" : "Fail"}"
   puts "L1 length is 4? #{l1.length == 4 ? "Pass" : "Fail"}"
-  l1.print_list()
+  l1.print_list
 
   l1.delete_node(2)
   puts "L1 length is 4? #{l1.length == 4 ? "Pass" : "Fail"}"
-  l1.print_list()
+  l1.print_list
 
   l1.delete_node(5)
   puts "L1 Head is 4? #{l1.head.data == 4 ? "Pass" : "Fail"}"
-  l1.print_list()
+  l1.print_list
 
   l1.delete_node(3)
   puts "L1 Head is 4? #{l1.head.data == 4 ? "Pass" : "Fail"}"
   puts "L1 length is 2? #{l1.length == 2 ? "Pass" : "Fail"}"
-  l1.print_list()
+  l1.print_list
 
   l1.delete_node(4)
   puts "L1 Head is 4? #{l1.head.data == 4 ? "Pass" : "Fail"}"
-  l1.print_list()
+  l1.print_list
 
   l1.delete_node(4)
   puts "L1 Head is nil? #{l1.head.nil? ? "Pass" : "Fail"}"
   puts "L1 length is 0? #{l1.length == 0 ? "Pass" : "Fail"}"
-  l1.print_list()
+  l1.print_list
 end

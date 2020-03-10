@@ -18,7 +18,8 @@ def remove_dups(l)
 end
 
 def test
-  l = LinkedList.new(3)
+  l = LinkedList.new
+  l.append_to_tail(3)
   l.append_to_tail(3)
   l.append_to_tail(3)
   remove_dups(l)
