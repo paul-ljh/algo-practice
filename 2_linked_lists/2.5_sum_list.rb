@@ -24,73 +24,31 @@ end
 
 def test
   puts "TEST for sum_list_reverse"
-  l1 = LinkedList.new
-  l1.append_to_tail(1)
-  l1.append_to_tail(2)
-  l1.append_to_tail(3)
-
-  l2 = LinkedList.new
-  l2.append_to_tail(9)
-  l2.append_to_tail(7)
-  l2.append_to_tail(6)
+  l1 = LinkedList.new([1,2,3])
+  l2 = LinkedList.new([9,7,6])
   puts "#{l1.print_list} + #{l2.print_list} = #{sum_list_reverse(l1, l2).print_list}"
 
-  l1 = LinkedList.new
-  l1.append_to_tail(1)
-  l1.append_to_tail(2)
-  l1.append_to_tail(3)
-
-  l2 = LinkedList.new
-  l2.append_to_tail(9)
-  l2.append_to_tail(7)
-  l2.append_to_tail(4)
+  l1 = LinkedList.new([1,2,3])
+  l2 = LinkedList.new([9,7,4])
   puts "#{l1.print_list} + #{l2.print_list} = #{sum_list_reverse(l1, l2).print_list}"
 
-  l1 = LinkedList.new
-  l1.append_to_tail(1)
-  l1.append_to_tail(2)
-  l1.append_to_tail(3)
-  l1.append_to_tail(9)
-
-  l2 = LinkedList.new
-  l2.append_to_tail(9)
-  l2.append_to_tail(7)
-  l2.append_to_tail(6)
+  l1 = LinkedList.new([1,2,3,9])
+  l2 = LinkedList.new([9,7,6])
   puts "#{l1.print_list} + #{l2.print_list} = #{sum_list_reverse(l1, l2).print_list}"
 
-  l1 = LinkedList.new
-  l1.append_to_tail(1)
-  l1.append_to_tail(2)
-  l1.append_to_tail(3)
-  l1.append_to_tail(7)
-
-  l2 = LinkedList.new
-  l2.append_to_tail(9)
-  l2.append_to_tail(7)
-  l2.append_to_tail(6)
+  l1 = LinkedList.new([1,2,3,7,8,9])
+  l2 = LinkedList.new([9,7,6])
   puts "#{l1.print_list} + #{l2.print_list} = #{sum_list_reverse(l1, l2).print_list}"
 
-  l1 = LinkedList.new
-  l1.append_to_tail(1)
-  l1.append_to_tail(2)
-  l1.append_to_tail(3)
-  
-  l2 = LinkedList.new
-  l2.append_to_tail(9)
-  l2.append_to_tail(7)
-  l2.append_to_tail(6)
-  l2.append_to_tail(9)
+  l1 = LinkedList.new([1,2,3,7])
+  l2 = LinkedList.new([9,7,5])
   puts "#{l1.print_list} + #{l2.print_list} = #{sum_list_reverse(l1, l2).print_list}"
 
-  l1 = LinkedList.new
-  l1.append_to_tail(1)
-  l1.append_to_tail(2)
-  l1.append_to_tail(3)
-  
-  l2 = LinkedList.new
-  l2.append_to_tail(9)
-  l2.append_to_tail(7)
-  l2.append_to_tail(6)
-  l2.append_to_tail(7)
+  l1 = LinkedList.new([1,2,3])
+  l2 = LinkedList.new([9,7,6,9])
+  puts "#{l1.print_list} + #{l2.print_list} = #{sum_list_reverse(l1, l2).print_list}"
+
+  l1 = LinkedList.new([1,2,3])
+  l2 = LinkedList.new([9,7,6,7])
   puts "#{l1.print_list} + #{l2.print_list} = #{sum_list_reverse(l1, l2).print_list}"
 end
