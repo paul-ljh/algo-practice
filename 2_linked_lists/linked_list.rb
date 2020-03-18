@@ -8,14 +8,16 @@ class Node
 end
 
 class LinkedList
-  attr_accessor :head, :length
+  attr_accessor :head, :tail
+  attr_reader :length
 
   def initialize(data=nil)
     if data.nil? 
-      @head = nil
+      @head = @tail = nil
       @length = 0
     elsif data.is_a?(Numeric)
       @head = Node.new(data)
+      @tail = @head
       @length = 1
     elsif data.is_a?(Array)
       initialize_from_array(data)
@@ -34,35 +36,36 @@ class LinkedList
         h = h.next_node
       end
     end
+    @tail = h
   end
 
   def append_to_tail(data)
+    puts "Append #{data} to tail"
     new_node = Node.new(data)
     if @head.nil?
       @head = new_node
-      @length += 1
-      return
+    else
+      @tail.next_node = new_node
     end
-
-    n = @head
-    while !n.next_node.nil?
-      n = n.next_node
-    end
-    n.next_node = new_node
+    @tail = new_node
     @length += 1
   end
 
   def delete_node(data)
-    n = @head
-    if n.data == data
-      @head = n.next_node
+    puts "Delete #{data}"
+    raise 'List is empty' if @head.nil?
+    if @head.data == data
+      @tail = nil if @head == @tail
+      @head = @head.next_node
       @length -= 1
       return data
     end
-
+      
+    n = @head
     while !n.next_node.nil?
       if n.next_node.data == data
         n.next_node = n.next_node.next_node
+        @tail = n if n.next_node.nil?
         @length -= 1
         return data
       end
@@ -85,33 +88,35 @@ end
 def test
   l1 = LinkedList.new
   l1.append_to_tail(5)
-  puts "L1 Head is 5? #{l1.head.data == 5 ? "Pass" : "Fail"}"
+  puts "L1: #{l1.print_list}"
 
   l1.append_to_tail(4)
   l1.append_to_tail(3)
   l1.append_to_tail(4)
-  puts "L1 Head is 5? #{l1.head.data == 5 ? "Pass" : "Fail"}"
+  puts "L1: #{l1.print_list}"
   puts "L1 length is 4? #{l1.length == 4 ? "Pass" : "Fail"}"
-  l1.print_list
+  puts
+  
+  l1.delete_node(4)
+  puts "L1: #{l1.print_list}"
+  puts "Tail is #{l1.tail.data}"
+  
+  l1.delete_node(4)
+  puts "L1: #{l1.print_list}"
+  puts "Tail is #{l1.tail.data}"
 
   l1.delete_node(2)
-  puts "L1 length is 4? #{l1.length == 4 ? "Pass" : "Fail"}"
+  puts "L1: #{l1.print_list}"
 
   l1.delete_node(5)
-  puts "L1 Head is 4? #{l1.head.data == 4 ? "Pass" : "Fail"}"
+  puts "L1: #{l1.print_list}"
+  puts "Tail is #{l1.tail.data}"
 
   l1.delete_node(3)
-  puts "L1 Head is 4? #{l1.head.data == 4 ? "Pass" : "Fail"}"
-  puts "L1 length is 2? #{l1.length == 2 ? "Pass" : "Fail"}"
+  puts "L1: #{l1.print_list}"
+  puts
 
-  l1.delete_node(4)
-  puts "L1 Head is 4? #{l1.head.data == 4 ? "Pass" : "Fail"}"
-
-  l1.delete_node(4)
-  puts "L1 Head is nil? #{l1.head.nil? ? "Pass" : "Fail"}"
-  puts "L1 length is 0? #{l1.length == 0 ? "Pass" : "Fail"}"
-
-  puts "Input: []\nOutput:#{LinkedList.new([]).print_list}"
-  puts "Input: [1]\nOutput:#{LinkedList.new([1]).print_list}"
-  puts "Input: [1,2,3,4]\nOutput:#{LinkedList.new([1,2,3,4]).print_list}"
+  puts "Print [] as #{LinkedList.new([]).print_list}"
+  puts "Print [1] as #{LinkedList.new([1]).print_list}"
+  puts "Print [1,2,3,4] as #{LinkedList.new([1,2,3,4]).print_list}"
 end
