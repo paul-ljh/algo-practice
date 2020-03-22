@@ -61,16 +61,15 @@ class DoublyLinkedList
   end
 
   def print
-    forward, backward = "", ""
+    return "\nnil\n" if @head.nil?
+    result = []
     h = @head
     while !h.nil? do
-      forward << "#{h.data}->"
-      backward << "#{h.data}<-"
+      result.push("#{h.data}")
       h = h.right_node
     end
-    forward << "nil" << "\n" 
-    backward << "nil" << "\n"
-    return "\n" + forward + backward
+    result = result.join("<->")
+    return "\n" + result + "\n"
   end
 end
 
