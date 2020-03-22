@@ -1,4 +1,4 @@
-load 'linked_list.rb'
+load "#{Dir.home}/Documents/Interviews/algo-practice/linked_list.rb"
 
 def palindrome(l)
   return true if l.head.nil?

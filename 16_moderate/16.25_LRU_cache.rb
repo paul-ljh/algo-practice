@@ -1,5 +1,4 @@
-load '../2_linked_lists/doubly_linked_list.rb'
-require 'pp'
+load "#{Dir.home}/Documents/Interviews/algo-practice/doubly_linked_list.rb"
 
 class LRUCache
   attr_accessor :dict, :list

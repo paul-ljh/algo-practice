@@ -1,11 +1,4 @@
-class Node
-  attr_accessor :data, :next_node
-
-  def initialize(data, next_node=nil)
-    @data = data
-    @next_node = next_node
-  end
-end
+load "#{Dir.home}/Documents/Interviews/algo-practice/uni_node.rb"
 
 class LinkedList
   attr_accessor :head, :tail

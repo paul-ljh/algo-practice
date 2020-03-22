@@ -1,4 +1,4 @@
-load 'linked_list.rb'
+load "#{Dir.home}/Documents/Interviews/algo-practice/linked_list.rb"
 require 'pp'
 
 # EX: 7->1->6 + 5->9->4 = 1->3->1->0

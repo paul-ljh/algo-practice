@@ -1,4 +1,4 @@
-load 'linked_list.rb'
+load "#{Dir.home}/Documents/Interviews/algo-practice/linked_list.rb"
 
 def iterative_kth_to_last(l, k)
   return false if k.zero?

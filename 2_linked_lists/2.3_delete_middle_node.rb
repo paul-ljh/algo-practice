@@ -1,4 +1,4 @@
-load 'linked_list.rb'
+load "#{Dir.home}/Documents/Interviews/algo-practice/linked_list.rb"
 require 'pp'
 
 class DeleteMiddleNode

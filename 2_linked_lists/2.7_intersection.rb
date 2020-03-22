@@ -1,4 +1,4 @@
-load 'linked_list.rb'
+load "#{Dir.home}/Documents/Interviews/algo-practice/linked_list.rb"
 
 def intersection_iter(l1, l2)
   return nil if l1.head.nil? || l2.head.nil?

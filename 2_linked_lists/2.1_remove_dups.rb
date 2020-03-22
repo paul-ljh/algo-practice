@@ -1,4 +1,4 @@
-load 'linked_list.rb'
+load "#{Dir.home}/Documents/Interviews/algo-practice/linked_list.rb"
 
 def remove_dups(l)
   return l if l.head.nil? || l.head.next_node.nil?
