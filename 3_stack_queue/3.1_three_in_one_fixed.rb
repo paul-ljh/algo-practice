@@ -27,6 +27,7 @@ class ThreeInOne
   def pop(stack_num)
     puts "POPPING STACK #{stack_num}"
     data_to_return = peek(stack_num)
+    @data[top_index(stack_num)] = nil
     @sizes[stack_num-1] -= 1
     puts "POPPED #{data_to_return} from STACK #{stack_num}"
     data_to_return
