@@ -1,40 +1,66 @@
-require '../3_stack'
+load "#{Dir.home}/Documents/Interviews/algo-practice/stack.rb"
 
-class NestedStack
-  LIMIT = 2
-  def initialize
-    @nested_stack = []
+class SetOfStacks
+  def initialize(limit)
+    @limit = limit
+    @stacks = []
   end
 
   def push(data)
-    if @nested_stack.empty? || @nested_stack[-1].length == LIMIT
-      @nested_stack.push(Stack.new)
+    if @stacks.empty? || @stacks[-1].length == @limit
+      @stacks.push(Stack.new)
     end
-    @nested_stack[-1].push(data)
+    @stacks[-1].push(data)
   end
 
-  def pop
-    raise 'empty stack' if @nested_stack.length == 0
-    data_to_pop = @nested_stack[-1].pop
-    @nested_stack.pop if @nested_stack[-1].is_empty?
-    return data_to_pop
+  def pop(index=-1)
+    raise 'EMPTY STACK' if @stacks.length == 0
+    data_to_pop = @stacks[index].pop
+    @stacks.slice!(index) if @stacks[index].is_empty?
+    data_to_pop
   end
 
   def pop_at(index)
-    raise 'empty stack' if @nested_stack.length == 0
-    raise 'invalid index' if @nested_stack.length < index + 1
-
-    data_to_pop = @nested_stack[index].pop
-    @nested_stack.slice!(index) if @nested_stack[index].is_empty?
-    return data_to_pop
+    raise 'INVALID INDEX' if @stacks.size <= index
+    pop(index)
   end
 
   def is_empty?
-    return @nested_stack.length == 0
+    @stacks.length == 0
   end
 
-  def peek
-    raise 'empty stack' if @nested_stack.length == 0
-    return @nested_stack[-1].peek
+  def peek(index=-1)
+    raise 'EMPTY STACK' if is_empty?
+    @stacks[index].peek
   end
-end    
+end
+
+def test
+  s = SetOfStacks.new(2)
+  begin
+    s.pop_at(0)
+  rescue StandardError => e
+    puts e.message
+    puts
+  end
+
+  begin
+    s.pop
+  rescue StandardError => e
+    puts e.message
+    puts
+  end
+
+  s.push(4)
+  s.push(2)
+  s.push(3)
+  s.push(4)
+  s.push(3)
+  puts s.pop_at(1) == 4 ? 'PASS' : 'FAIL'
+  puts s.pop_at(1) == 3 ? 'PASS' : 'FAIL'
+  puts s.peek(1) == -2 ? 'PASS' : 'FAIL'
+  puts s.pop == 3 ? 'PASS' : 'FAIL'
+  puts s.pop == 2 ? 'PASS' : 'FAIL'
+  puts s.pop == 4 ? 'PASS' : 'FAIL'
+end
+
