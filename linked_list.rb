@@ -9,7 +9,7 @@ class LinkedList
       @head = @tail = nil
       @length = 0
     elsif data.is_a?(Numeric)
-      @head = Node.new(data)
+      @head = UniNode.new(data)
       @tail = @head
       @length = 1
     elsif data.is_a?(Array)
@@ -22,10 +22,10 @@ class LinkedList
     h = nil
     for element in data do
       if h.nil?
-        h = Node.new(element)
+        h = UniNode.new(element)
         @head = h
       else
-        h.next_node = Node.new(element)
+        h.next_node = UniNode.new(element)
         h = h.next_node
       end
     end
@@ -33,8 +33,7 @@ class LinkedList
   end
 
   def append_to_tail(data)
-    puts "Append #{data} to tail"
-    new_node = Node.new(data)
+    new_node = UniNode.new(data)
     if @head.nil?
       @head = new_node
     else
@@ -45,7 +44,6 @@ class LinkedList
   end
 
   def delete_node(data)
-    puts "Delete #{data}"
     raise 'List is empty' if @head.nil?
     if @head.data == data
       @tail = nil if @head == @tail
