@@ -1,23 +1,35 @@
-require '../3_stack'
+load "#{Dir.home}/Documents/Interviews/algo-practice/stack.rb"
 
 def sort_stack(s)
   return s if s.is_empty?
-  tmp = Stack.new
-  while !s.is_empty? do
-    item = s.pop
-    iterative_insert(item, tmp)
+  storage = Stack.new
+  until s.is_empty? do
+    temp = s.pop
+    until storage.is_empty? || storage.peek >= temp do
+      s.push(storage.pop)
+    end
+    storage.push(temp)
   end
-  return tmp
+  return storage
 end
 
-def iterative_insert(item, tmp)
-  if tmp.is_empty? || item <= tmp.peek
-    tmp.push(item)
-    return tmp
-  else
-    tmp_pop_item = tmp.pop
-    new_tmp = iterative_insert(item, tmp)
-    new_tmp.push(tmp_pop_item)
-    return new_tmp
-  end
+def test
+  s = Stack.new
+  puts sort_stack(s).inspect
+
+  s = Stack.new
+  [1].each { |item| s.push(item) }
+  puts sort_stack(s).inspect
+
+  s = Stack.new
+  [1,2,3,4,5].each { |item| s.push(item) }
+  puts sort_stack(s).inspect
+
+  s = Stack.new
+  [5,4,3,2,1].each { |item| s.push(item) }
+  puts sort_stack(s).inspect
+
+  s = Stack.new
+  [8,1,3,7,5,3,3].each { |item| s.push(item) }
+  puts sort_stack(s).inspect
 end
