@@ -1,5 +1,7 @@
 load "#{Dir.home}/Documents/Interviews/algo-practice/doubly_linked_list.rb"
 
+BiNode.class_eval { attr_accessor :key }
+
 class LRUCache
   attr_accessor :dict, :list
 
@@ -15,13 +17,15 @@ class LRUCache
       deleted = @list.pop
       @dict.delete(deleted.key)
     end
-    @dict[key] = @list.add(data: value, key: key)
+    @dict[key] = @list.add(data: value)
+    @dict[key].key = key
   end
 
   def retrieve(key)
     if @dict.has_key?(key)
       deleted = @list.delete(@dict[key])
-      @list.add(data: deleted.data, key: deleted.key)
+      @list.add(data: deleted.data)
+      @list.tail.key = deleted.key
       return deleted.data
     else
       raise "ABSENT KEY"

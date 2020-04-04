@@ -21,8 +21,8 @@ class DoublyLinkedList
     return return_node
   end
 
-  def add(data:, key: nil)
-    new_node = BiNode.new(data: data, key: key)
+  def add(data)
+    new_node = BiNode.new(data: data)
     if @head.nil?
       @head = @tail = new_node
     else
