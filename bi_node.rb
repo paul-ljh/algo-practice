@@ -1,7 +1,7 @@
 class BiNode
   attr_accessor :data, :visited, :left_node, :right_node
 
-  def initialize(data:, left_node: nil, right_node: nil)
+  def initialize(data: nil, left_node: nil, right_node: nil)
     @data = data
     @visited = false
     @left_node = left_node
