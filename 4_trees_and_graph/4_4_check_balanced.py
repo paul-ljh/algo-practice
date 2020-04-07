@@ -66,3 +66,6 @@ def test():
     )
   )
   print('PASS' if not check_balanced(t) else 'FAIL')
+
+if __name__ == '__main__':
+    test()
