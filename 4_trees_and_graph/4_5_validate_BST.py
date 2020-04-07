@@ -3,7 +3,6 @@ sys.path.append("/Users/pauLi/Documents/Interviews/algo-practice/")
 
 from bi_node import BiNode
 
-
 def validate_BST(root):
   if root is None:
     return True
@@ -32,12 +31,29 @@ def validate_BST_helper(root):
   else:
     return (False, False)
 
+
+def validate_BST_alternative(root):
+  return validate_BST_alternative_helper(root, None, None)
+  
+def validate_BST_alternative_helper(root, min, max):
+  if root is None:
+    return True
+  if (min is not None and root.data < min) or (max is not None and root.data > max):
+    return False
+  elif (not validate_BST_alternative_helper(root.left_node, min, root.data)) or (not validate_BST_alternative_helper(root.right_node, root.data, max)):
+    return False
+  else:
+    return True
+
+
 def test():
   t = None
   print('PASS' if validate_BST(t) else 'FAIL')
+  print('PASS' if validate_BST_alternative(t) else 'FAIL')
 
   t = BiNode(data=6)
   print('PASS' if validate_BST(t) else 'FAIL')
+  print('PASS' if validate_BST_alternative(t) else 'FAIL')
 
   t = BiNode(
     data=6,
@@ -48,6 +64,7 @@ def test():
     )
   )
   print('PASS' if not validate_BST(t) else 'FAIL')
+  print('PASS' if not validate_BST_alternative(t) else 'FAIL')
 
   t = BiNode(
     data=6,
@@ -62,6 +79,7 @@ def test():
     )
   )
   print('PASS' if not validate_BST(t) else 'FAIL')
+  print('PASS' if not validate_BST_alternative(t) else 'FAIL')
 
   t = BiNode(
     data=10,
@@ -76,6 +94,7 @@ def test():
     )
   )
   print('PASS' if validate_BST(t) else 'FAIL')
+  print('PASS' if validate_BST_alternative(t) else 'FAIL')
 
 if __name__ == '__main__':
     test()
