@@ -1,8 +1,9 @@
 class BiNode:
-  def __init__(self, *, data, left_node=None, right_node=None):
+  def __init__(self, *, data, left_node=None, right_node=None, parent=None):
     self.data = data
     self.left_node = left_node
     self.right_node = right_node
+    self.parent = parent
     self.visited = False
 
   def get_all_nodes(self):
