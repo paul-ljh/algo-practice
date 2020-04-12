@@ -82,6 +82,8 @@ def test():
     )
   )
   print('PASS' if first_common_ancestor(root, node1, node2) is node2 else 'FAIL')
+  print('PASS' if first_common_ancestor(root, node1, BiNode(data=8)) is None else 'FAIL')
+  print('PASS' if first_common_ancestor(root, BiNode(data=2), BiNode(data=8)) is None else 'FAIL')
 
 if __name__ == '__main__':
     test()
