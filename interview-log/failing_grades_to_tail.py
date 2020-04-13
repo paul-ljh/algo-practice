@@ -19,8 +19,8 @@ def failing_grade_to_tail(arr):
 def test():
   print('PASS' if failing_grade_to_tail([]) == [] else 'FAIL')
   print('PASS' if failing_grade_to_tail([10,10,10,10]) == [10,10,10,10] else 'FAIL')
-  print('PASS' if failing_grade_to_tail([80,80,80,80,80]) == [80,80,80,80,80] else 'FAIL')
-  print('PASS' if failing_grade_to_tail([20,80,20,80,20,80,20]) == [80,80,80,20,20,20,20] else 'FAIL')
+  print('PASS' if failing_grade_to_tail([50,60,70,80,90]) == [50,60,70,80,90] else 'FAIL')
+  print('PASS' if failing_grade_to_tail([20,50,20,60,20,70,20,80]) == [50,60,70,80,20,20,20,20] else 'FAIL')
 
 if __name__ == '__main__':
   test()
