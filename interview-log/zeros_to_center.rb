@@ -5,57 +5,48 @@ Given an array of numbers, move all zeros to the center of the array. Nonzero el
 For the purpose of this question, the centre is floor(array.length/2)
 
 =end
-require 'pp'
 
-# 2-Pass in-place algo
 def zeros_to_center(arr)
   return arr if arr.empty?
-
-  non_zero_counts = count_non_zeros(arr)
-  left_swaps, right_swaps = non_zero_counts / 2, non_zero_counts / 2 + non_zero_counts % 2
-  swap_counts = 0
-  0.upto(arr.length - 1) do |i|
-    if swap_counts < left_swaps
-      if !arr[i].zero?
-        if swap_counts < i
-          arr[swap_counts] = arr[i]
-          arr[i] = 0
-        end
-        swap_counts += 1
-      end
-    else
-      break
-    end
-  end
-
-  swap_counts = 0
-  (arr.length - 1).downto(0) do |i|
-    if swap_counts < right_swaps
-      if !arr[i].zero?
-        if swap_counts < arr.length - 1 - i
-          arr[arr.length - swap_counts - 1] = arr[i]
-          arr[i] = 0
-        end
-        swap_counts += 1
-      end
-    else
-      break
-    end
-  end
+  move_zeros_to_tail(arr, 0, arr.size/2)
+  move_zeros_to_front(arr, arr.size-1, arr.size/2+1)
   return arr
 end
 
-def count_non_zeros(arr)
-  count = 0
-  for element in arr do
-    count += 1 if !element.zero?
+def move_zeros_to_tail(arr, head, tail)
+  return arr if arr.empty?
+  zeros_index = nil
+  head.upto(tail) do |index|
+    if arr[index].zero? && zeros_index.nil?
+      zeros_index = index
+    elsif !arr[index].zero? && !zeros_index.nil?
+      tmp = arr[index]
+      arr[index] = arr[zeros_index]
+      arr[zeros_index] = tmp
+      zeros_index += 1
+    end
   end
-  return count
 end
 
+def move_zeros_to_front(arr, head, tail)
+  return arr if arr.empty?
+  zeros_index = nil
+  head.downto(tail) do |index|
+    if arr[index].zero? && zeros_index.nil?
+      zeros_index = index
+    elsif !arr[index].zero? && !zeros_index.nil?
+      tmp = arr[index]
+      arr[index] = arr[zeros_index]
+      arr[zeros_index] = tmp
+      zeros_index -= 1
+    end
+  end
+end 
+
 def test
-  puts "Input ([1, 0, 2, 0, 9, 8]) #{zeros_to_center([1, 0, 2, 0, 9, 8]) == [1,2,0,0,9,8] ? 
-  "Pass" : "Fail"}"
-  puts "Input ([0, 0, 2, 10, 9, 8, 0, 0, 10]) #{zeros_to_center([0, 0, 2, 10, 9, 8, 0, 0, 10]) == [2,10,0,0,0,0,9,8,10] ? "Pass" : "Fail"}"
+  puts zeros_to_center([0,0,0,0,0,0]) == [0,0,0,0,0,0] ? "Pass" : "Fail"
+  puts zeros_to_center([1,2,3,4,5,6]) == [1,2,3,4,5,6] ? "Pass" : "Fail"
+  puts zeros_to_center([1,0,2,0,9,8]) == [1,2,0,0,9,8] ? "Pass" : "Fail"
+  puts zeros_to_center([0,2,0,5,0,10,9,0,8,0,0,10]) == [2,5,10,9,0,0,0,0,0,0,8,10] ? "Pass" : "Fail"
 end
 
