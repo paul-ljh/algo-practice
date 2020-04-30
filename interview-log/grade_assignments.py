@@ -45,7 +45,10 @@ def grade(arr, leftover, i):
     quotient = leftover // (i+1)
     leftover -= (min(quotient, arr[i]) * (i+1))
     arr[i] -= min(quotient, arr[i])
-  return grade(arr, leftover, i-1)
+    i = leftover - 1
+  else:
+    i -= 1
+  return grade(arr, leftover, i)
 
 def test():
   arr = [4, 0, 0, 0]
