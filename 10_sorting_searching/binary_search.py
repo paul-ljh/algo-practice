@@ -1,13 +1,13 @@
-def bin_search_recur(arr, begin, end, target):
+def binary_search_recur(arr, begin, end, target):
   if end < begin:
     return -1
   mid = (end + begin) // 2
   if arr[mid] == target:
     return mid
   elif arr[mid] > target:
-    return bin_search_recur(arr, begin, mid-1, target)
+    return binary_search_recur(arr, begin, mid-1, target)
   else:
-    return bin_search_recur(arr, mid+1, end, target)
+    return binary_search_recur(arr, mid+1, end, target)
 
 def binary_search_iter(arr, target):
   if not arr:
@@ -28,7 +28,7 @@ def binary_search(arr, target):
   if not arr:
     return -1
   else:
-    return bin_search_recur(arr, 0, len(arr)-1, target)
+    return binary_search_recur(arr, 0, len(arr)-1, target)
   
 def test():
   arr = [1,4,5,6,7,8,9]
