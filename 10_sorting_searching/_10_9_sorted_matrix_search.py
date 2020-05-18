@@ -38,8 +38,6 @@ def test():
   print('PASS' if sorted_matrix_search(m, 30) == (4, 4) else 'FAIL')
   print('PASS' if sorted_matrix_search(m, 0) == None else 'FAIL')
   print('PASS' if sorted_matrix_search(m, 1) == (0, 0) else 'FAIL')
-  
-
 
 if __name__ == '__main__':
   test()
