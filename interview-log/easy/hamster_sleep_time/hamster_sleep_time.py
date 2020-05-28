@@ -1,4 +1,6 @@
 '''
+Google Japan 2020.4
+
 Test cases will be provided in the following multiline text format, using only ASCII characters.
 
 The first line contains one integer, C, which is the number of test cases that will follow. The second line is blank. The test cases will follow starting from the third line, with a blank line between test cases.

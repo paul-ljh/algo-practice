@@ -1,4 +1,6 @@
 '''
+Google Canada 2020.5
+
 A company calculates an integer score for each of its employees, equal to: 
   The total number of direct and indirect reports under the employee, plus 1.
   

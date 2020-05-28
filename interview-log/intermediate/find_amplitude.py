@@ -1,4 +1,6 @@
 '''
+Google Canada 2020.4
+
 We are given an array A consisting of N integers. In one move, we can choose any element in this array and replace it with any value.
 
 What is the smallest possible amplitude of array A that we can achieve by performing at most three moves? The amplitude of an array is the difference between the largest and the smallest values it contains.

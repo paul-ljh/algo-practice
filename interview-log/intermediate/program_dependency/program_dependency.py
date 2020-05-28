@@ -1,4 +1,5 @@
 ''' 
+Google Japan 2020.4
 You have N programs and want to run each of them exactly once. Each program takes exactly one hour to complete. You can run multiple programs in parallel, but some programs depend on the output from one or more other programs and thus can be run only after their completion. Given the dependency between programs, please compute the minimum number of hours you need to run all programs.
 
 Input
