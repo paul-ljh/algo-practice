@@ -14,7 +14,7 @@ def generate_combos(combo, cache, l_remain, r_remain):
   curr = ['(' + suffix for suffix in cache[(l_remain-1, r_remain)]]
   
   if l_remain < r_remain:
-    generate_combos(combo+'(', cache, l_remain, r_remain-1)
+    generate_combos(combo+')', cache, l_remain, r_remain-1)
     curr.extend([')' + suffix for suffix in cache[(l_remain, r_remain-1)]])
   cache[(l_remain,r_remain)] = curr
   return
