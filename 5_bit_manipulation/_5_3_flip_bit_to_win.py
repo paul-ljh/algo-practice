@@ -1,4 +1,8 @@
+import sys
+sys.path.append("/Users/pauLi/Documents/Interviews/algo-practice/")
+
 from math import log
+from bit_ops import get_bit, set_bit
 
 def flip_bit_to_win(num):
   if num == 0:
@@ -18,12 +22,6 @@ def flip_bit_to_win(num):
       curr_l += 1
     max_l = max(max_l, curr_l+prev_l+1)
   return max_l
-
-def get_bit(num, i):
-  if i < 0 or i > int(log(num, 2)):
-    return None
-  mask = 1 << i
-  return mask & num != 0
 
 def test():
   num = 0b0
