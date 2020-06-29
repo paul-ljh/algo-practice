@@ -27,36 +27,48 @@ def add_without_plus(n1, n2):
       result = maxsize if n1_sign else -maxsize-1
   return twos_comp(result)
 
+def better_add_without_plus(a, b):
+  a_sign, b_sign = get_sign(a), get_sign(b)
+  while b != 0:
+    result, carry = a ^ b, a & b
+    a, b = result, carry << 1
+  
+  # Integer Overflow
+  if a_sign == b_sign and get_sign(a) != a_sign:
+    a = maxsize if a_sign else -maxsize-1
+  return twos_comp(a)
+    
+
 def test():
   n1 = 0
   n2 = 0
   answer = 0
-  print('PASS' if add_without_plus(n1, n2) == answer else 'FAIL')
+  print('PASS' if better_add_without_plus(n1, n2) == add_without_plus(n1, n2) == answer else 'FAIL')
   
   n1 = 0
   n2 = 0b101011
   answer = n2
-  print('PASS' if add_without_plus(n1, n2) == answer else 'FAIL')
+  print('PASS' if better_add_without_plus(n1, n2) == add_without_plus(n1, n2) == answer else 'FAIL')
   
   n1 = 0b110011
   n2 = 0b101011
   answer = 0b1011110
-  print('PASS' if add_without_plus(n1, n2) == answer else 'FAIL')
+  print('PASS' if better_add_without_plus(n1, n2) == add_without_plus(n1, n2) == answer else 'FAIL')
   
   n1 = maxsize
   n2 = 0b11
   answer = maxsize
-  print('PASS' if add_without_plus(n1, n2) == answer else 'FAIL')
+  print('PASS' if better_add_without_plus(n1, n2) == add_without_plus(n1, n2) == answer else 'FAIL')
   
   n1 = -2
   n2 = -4
   answer = -6
-  print('PASS' if add_without_plus(n1, n2) == answer else 'FAIL')
+  print('PASS' if better_add_without_plus(n1, n2) == add_without_plus(n1, n2) == answer else 'FAIL')
   
   n1 = -maxsize
   n2 = -4
   answer = -maxsize-1
-  print('PASS' if add_without_plus(n1, n2) == answer else 'FAIL')
+  print('PASS' if better_add_without_plus(n1, n2) == add_without_plus(n1, n2) == answer else 'FAIL')
   
 if __name__ == "__main__":
   test()
