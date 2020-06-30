@@ -1,13 +1,16 @@
 from math import log
 
 def get_bit(num, i):
-  if i < 0 or i > int(log(num, 2)):
+  if i < 0 or i > 63:
     return None
   mask = 1 << i
   return mask & num != 0
 
+'''
+set i-th bit to 1, 0-based
+'''
 def set_bit(num, i):
-  if i < 0 or i > int(log(num, 2)):
+  if i < 0 or i > 63:
     return None
   mask = 1 << i
   return mask | num
