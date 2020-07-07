@@ -1,5 +1,16 @@
 from sys import maxsize
 
+'''
+The idea is based on the following:
+1. If seq[i] is smallest among all end candidates of active lists, we will start new active list of length 1.
+2. If seq[i] is largest among all end candidates of active lists, we will clone the largest active list, and extend it by seq[i].
+3. If seq[i] is in between, we will find a list with largest end element that is smaller than seq[i]. Clone and extend this list by seq[i]. We will discard all other lists of same length as that of this modified list.
+
+Note that at any instance during our construction of active lists, the following condition is maintained.
+
+end element of smaller list is smaller than end elements of larger lists.
+'''
+
 def longest_increasing_sequence(seq):
   length_list = [[]]
   for num in seq:
