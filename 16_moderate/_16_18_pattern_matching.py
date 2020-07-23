@@ -1,3 +1,9 @@
+'''
+Given 2 strings, pattern and value. The pattern string consists of just the letters 'a' and 'b', describing a pattern within a string. For example, the string catcatgocatgo matches the pattern aabab. It also matches pattern like a, ab and b.
+
+Write a method to determine if value matches pattern.
+'''
+
 def pattern_matching(pattern, value):
   if not pattern and not value:
     return True
