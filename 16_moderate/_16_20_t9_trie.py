@@ -14,8 +14,7 @@ The keyboard is shown below:
 9: wxyz
 '''
 
-from utils_python.trie.trie import Trie
-from utils_python.trie.trie_node import TrieNode
+from utils_python.trie import *
 
 def t9(seq, valid_words, keyboard):
   trie_words = Trie()

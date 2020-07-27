@@ -1,4 +1,4 @@
-from utils_python.trie.trie_node import TrieNode
+from .trie_node import TrieNode
 
 class Trie:
   def __init__(self, words=None):
