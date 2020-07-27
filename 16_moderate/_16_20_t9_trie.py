@@ -14,9 +14,6 @@ The keyboard is shown below:
 9: wxyz
 '''
 
-import sys
-sys.path.append("/Users/pauLi/Documents/Interviews/algo-practice/")
-
 from utils_python.trie.trie import Trie
 from utils_python.trie.trie_node import TrieNode
 

@@ -1,6 +1,3 @@
-import sys
-sys.path.append("/Users/pauLi/Documents/Interviews/algo-practice/")
-
 from utils_python.trie.trie_node import TrieNode
 
 class Trie:
