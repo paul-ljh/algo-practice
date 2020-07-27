@@ -1,8 +1,8 @@
 import sys
 sys.path.append("/Users/pauLi/Documents/Interviews/algo-practice/")
 
+from utils_python.trie.trie import Trie
 from heapq import *
-from trie import Trie
 
 def word_transformer(d):
   if not d:
