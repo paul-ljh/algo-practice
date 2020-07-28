@@ -1,0 +1,66 @@
+Features:
+1. create account, profile page (DB write)
+2. add friend via friend request, wait for confirmation (DB write)
+3. post messages on friends' pages
+4. read messages that friends have posted on your page
+5. like posts, friends or non-friends
+
+
+Constraints:
+1. 10M users <=> 10M nodes
+2. avg 100 friends of each user <=> avg 1B edges
+3. one message could not only contain texts, but also pictures, files
+4. avg 10 messages/day each user
+    => 3650 * 10M messages per year
+    => suppose each message has 100 characters
+    => 365000 * 10M characters per year
+    => each character takes 2 bytes
+    => 73000 * 10M bytes per year just on storing posts
+
+
+Basic Design:
+1. Front-end for users
+2. Back-end to receive requests
+3. Database/data store for storing data
+
+
+Components:
+  Client/Front-end:
+  1. multiple nodes required
+
+  Server/Backend:
+  1. horizontal scaling + load balancer, evenly distribute requests amongst servers, and scalable
+
+  Database/Data store:
+  1. operation-heavy database due to the amount of posts, horizontally scale DBs, could be id-key-based, or table-based partition
+  2. use cache-enabled DBs to increase performance
+  3. read-heavy, consider slave DBs for reads, fewer master DBs for writing
+  4. legacy posts can be stored in data store as text files
+  5. Geographical optimization
+  6. tables: User, Post, Friend, Like
+
+      User:
+        id
+        friends
+        posts
+        first_name
+        last_name
+        date_of_birth
+        email
+
+      Post:
+        id
+        sender_id
+        receiver_id
+        content
+        created_at
+
+      Friend:
+        id
+        first_friend_id
+        second_friend_id
+      
+      Like:
+        id
+        post_id
+        author_id

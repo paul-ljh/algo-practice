@@ -1,0 +1,8 @@
+Design a simple model of Facebook
+
+Requirements:
+- Add Friend
+- Post messages and show on friends timeline
+- 10M users
+- Avg 100 friends of each user
+- Avg 10 messages/day each user
