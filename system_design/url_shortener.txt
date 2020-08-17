@@ -1,0 +1,35 @@
+URL Shortener is used to transform long, ugly links into nice, memorable and trackable short URLs.
+
+EX:
+google.com/s=fldsjflskfjlskf => bit.ly/dflkjld
+
+Features:
+- User account, which keeps all URL usage history
+- url transforming (hash perhaps)
+- url analytics
+
+Components:
+- Front-end: 
+  - receive the original urls from the users
+  - receive the shortened one
+
+- Back-end:
+  1. receive original from front-end
+  2. convert longer(original) url to shorter one (potentially some hash function)
+  3. store in a mapping (key: shortened, value: original)
+  4. send back the shortened to user
+
+  1. assume any requests at shortened urls will always be directed to our server
+  2. look up shortened in the mapping
+  3. if exists, direct request to the original url
+  4. if not, given them 404 not found
+
+  What to do with hash collisions?
+  - paritition the mapping to increase capacity like following:
+    shortened url format: hash(original url) + salt + len(salt)
+
+    mapping structure:
+    { hash(original url) => { salt => original url } }
+
+    could even further partition mapping, ex by hash code length
+
