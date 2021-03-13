@@ -1,6 +1,5 @@
 '''
 Array:
-https://leetcode.com/problems/valid-triangle-number/
 
 Stack & Queue:
 https://leetcode.com/problems/trapping-rain-water/
