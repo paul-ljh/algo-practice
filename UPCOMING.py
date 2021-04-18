@@ -2,10 +2,8 @@
 Array:
 
 Stack & Queue:
-https://leetcode.com/problems/trapping-rain-water/
 
 DP:
-https://leetcode.com/problems/word-break/
 
 Sort:
 https://leetcode.com/problems/the-k-strongest-values-in-an-array/
