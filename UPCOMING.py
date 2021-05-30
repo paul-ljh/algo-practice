@@ -14,7 +14,6 @@ Design:
 https://leetcode.com/problems/apply-discount-every-n-orders/
 
 Graph:
-https://leetcode.com/problems/all-paths-from-source-to-target/
 
 Bit:
 https://leetcode.com/problems/binary-watch/
