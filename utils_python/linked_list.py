@@ -26,12 +26,34 @@ class LinkedList:
       prev.next_node = n
 
     self.length += 1
+    return True
+
+  def remove(self, index):
+    if index >= self.length:
+      raise Exception('Invalid index')
+
+    prev, curr = None, self.head
+    i = 0
+    while i < index:
+      prev = curr
+      curr = curr.next_node
+      i += 1
+
+    return_data = curr.data
+    if index == 0:
+      self.head = curr.next_node
+    else:
+      prev.next_node = curr.next_node
+
+    self.length -= 1
+    return return_data
 
   def print(self):
     tmp = self.head
     while tmp != None:
       print(tmp.data)
       tmp = tmp.next_node
+    print('None')
 
 def test():
   l = LinkedList()
@@ -44,6 +66,17 @@ def test():
     l.add(4,4)
   except Exception as e:
     print(e)
+
+  l.remove(0)
+  l.remove(1)
+
+  try:
+    l.remove(1)
+  except Exception as e:
+    print(e)
+
+  l.remove(0)
+  l.print()
 
 if __name__ == '__main__':
   test()
