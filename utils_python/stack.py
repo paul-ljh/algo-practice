@@ -5,7 +5,7 @@ class StackNode:
 
 class Stack:
   def __init__(self):
-    self.top = top
+    self.top = None
 
   def push(self, data):
     sn = StackNode(data, self.top)
@@ -28,3 +28,38 @@ class Stack:
 
   def is_empty(self):
     return self.top == None
+
+def test():
+  s = Stack()
+
+  print('PASS' if s.is_empty() else 'FAIL')
+  try:
+    s.pop()
+  except IndexError:
+    pass
+
+  try:
+    s.peek()
+  except IndexError:
+    pass
+
+  s.push(2)
+  print('PASS' if s.peek() == 2 else 'FAIL')
+  s.push(3)
+  print('PASS' if s.peek() == 3 else 'FAIL')
+  print('PASS' if s.pop() == 3 else 'FAIL')
+  print('PASS' if s.pop() == 2 else 'FAIL')
+
+  print('PASS' if s.is_empty() else 'FAIL')
+  try:
+    s.pop()
+  except IndexError:
+    pass
+
+  try:
+    s.peek()
+  except IndexError:
+    pass
+
+if __name__ == '__main__':
+  test()
