@@ -3,6 +3,7 @@ Array:
 https://leetcode.com/problems/h-index/
 
 Stack & Queue:
+https://leetcode.com/problems/longest-valid-parentheses/
 
 DP:
 
