@@ -2,6 +2,9 @@
 Given a shorter string and a longer string, find all permutations of the shorter string in the longer string. Return the location of each permutation.
 '''
 
+'''
+O(N) runtime where N = len(long)
+'''
 def find_permutation(short, long):
   result = []
 

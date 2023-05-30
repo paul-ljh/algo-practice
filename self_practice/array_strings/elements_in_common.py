@@ -2,6 +2,10 @@
 Given 2 sorted arrays, find the number of elements in common. The arrays are of the same length and each has all distinct elements.
 '''
 
+'''
+O(N) runtime, where N is the length of a or b
+'''
+
 def elements_in_common(a, b):
   i = j = 0
   result = 0
