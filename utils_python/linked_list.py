@@ -8,13 +8,24 @@ class LinkedList:
     self.head = None
     self.length = 0
 
+  def __len__(self):
+    return self.length
+
+  def to_array(self):
+    result = []
+    l = self.head
+    while l is not None:
+      result.append(l.data)
+      l = l.next_node
+    return result
+
   def append(self, data):
     n = Node(data)
     self.length += 1
 
     if self.head is None:
       self.head = n
-      self.length += 1
+      return
 
     l = self.head
     while l.next_node is not None:
@@ -22,9 +33,25 @@ class LinkedList:
     l.next_node = n
     return
 
+  def delete(self, data):
+    l = self.head
+    prev = None
+    while l is not None:
+      if l.data != data:
+        prev = l
+        l = l.next_node
+        continue
+      if prev is None:
+        self.head = self.head.next_node
+      else:
+        prev.next_node = l.next_node
+      self.length -= 1
+      return
+    raise IndexError('Not found')
+
   def add(self, index, data):
     if index > self.length:
-      raise Exception('Invalid index')
+      raise IndexError('Invalid index')
 
     prev, curr = None, self.head
     i = 0
@@ -44,7 +71,7 @@ class LinkedList:
 
   def remove(self, index):
     if index >= self.length:
-      raise Exception('Invalid index')
+      raise IndexError('Invalid index')
 
     prev, curr = None, self.head
     i = 0
@@ -71,27 +98,39 @@ class LinkedList:
 
 def test():
   l = LinkedList()
+  l.append(4)
   l.add(0,1)
   l.add(0,2)
   l.add(1,3)
   l.append(4)
-  l.print()
+  print('PASS' if l.to_array() == [2,3,1,4,4] else 'FAIL')
+
+  l.delete(4)
+  print('PASS' if l.to_array() == [2,3,1,4] else 'FAIL')
+  l.delete(3)
+  print('PASS' if l.to_array() == [2,1,4] else 'FAIL')
+
+  for i in [2,1,4]: l.delete(i)
+  print('PASS' if l.to_array() == [] else 'FAIL')
+
+  try:
+    l.delete(1)
+  except IndexError as e:
+    print('PASS' if str(e) == 'Not found' else 'FAIL')
 
   try:
     l.add(5,4)
-  except Exception as e:
-    print(e)
+  except IndexError as e:
+    print('PASS' if str(e) == 'Invalid index' else 'FAIL')
 
-  l.remove(0)
-  l.remove(1)
-
+  l.append(4)
   try:
     l.remove(1)
-  except Exception as e:
-    print(e)
+  except IndexError as e:
+    print('PASS' if str(e) == 'Invalid index' else 'FAIL')
 
   l.remove(0)
-  l.print()
+  print('PASS' if l.to_array() == [] else 'FAIL')
 
 if __name__ == '__main__':
   test()
