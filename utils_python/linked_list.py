@@ -11,6 +11,14 @@ class LinkedList:
   def __len__(self):
     return self.length
 
+  def __contains__(self, data):
+    l = self.head
+    while l is not None:
+      if l.data == data:
+        return True
+      l = l.next_node
+    return False
+
   def to_array(self):
     result = []
     l = self.head
@@ -98,6 +106,8 @@ class LinkedList:
 
 def test():
   l = LinkedList()
+  print('PASS' if 5 not in l else 'FAIL')
+
   l.append(4)
   print('PASS' if len(l) == 1 else 'FAIL')
   l.add(0,1)
@@ -107,6 +117,9 @@ def test():
   l.add(1,3)
   l.append(4)
   print('PASS' if l.to_array() == [2,3,1,4,4] else 'FAIL')
+
+  print('PASS' if 2 in l else 'FAIL')
+  print('PASS' if 5 not in l else 'FAIL')
 
   l.delete(4)
   print('PASS' if l.to_array() == [2,3,1,4] else 'FAIL')
