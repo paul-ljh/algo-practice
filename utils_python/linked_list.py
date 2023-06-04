@@ -19,6 +19,17 @@ class LinkedList:
       l = l.next_node
     return False
 
+  def __iter__(self):
+    self.iter = self.head
+    return self
+
+  def __next__(self):
+    if self.iter is not None:
+      result = self.iter.data
+      self.iter = self.iter.next_node
+      return result
+    raise StopIteration
+
   def to_array(self):
     result = []
     l = self.head
@@ -117,6 +128,10 @@ def test():
   l.add(1,3)
   l.append(4)
   print('PASS' if l.to_array() == [2,3,1,4,4] else 'FAIL')
+
+  result = [2,3,1,4,4]
+  for i, data in enumerate(l):
+    print('PASS' if data == result[i] else 'FAIL')
 
   print('PASS' if 2 in l else 'FAIL')
   print('PASS' if 5 not in l else 'FAIL')
