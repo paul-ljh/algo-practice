@@ -78,8 +78,12 @@ def test():
   del h[3]
   print('PASS' if h.to_hash() == {1:3, 2:3} else 'FAIL')
 
-  print('PASS' if h[1] == 3 else 'FAIL')
-  print('PASS' if h[2] == 3 else 'FAIL')
+  print('PASS' if 2 in h else 'FAIL')
+  print('PASS' if h[1] == h[2] == 3 else 'FAIL')
+  try:
+    h[4]
+  except KeyError as e:
+    print('PASS')
 
   try:
     del h['a']
