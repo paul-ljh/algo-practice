@@ -99,19 +99,25 @@ class LinkedList:
 def test():
   l = LinkedList()
   l.append(4)
+  print('PASS' if len(l) == 1 else 'FAIL')
   l.add(0,1)
+  print('PASS' if len(l) == 2 else 'FAIL')
   l.add(0,2)
+  print('PASS' if len(l) == 3 else 'FAIL')
   l.add(1,3)
   l.append(4)
   print('PASS' if l.to_array() == [2,3,1,4,4] else 'FAIL')
 
   l.delete(4)
   print('PASS' if l.to_array() == [2,3,1,4] else 'FAIL')
+  print('PASS' if len(l) == 4 else 'FAIL')
   l.delete(3)
   print('PASS' if l.to_array() == [2,1,4] else 'FAIL')
+  print('PASS' if len(l) == 3 else 'FAIL')
 
   for i in [2,1,4]: l.delete(i)
   print('PASS' if l.to_array() == [] else 'FAIL')
+  print('PASS' if len(l) == 0 else 'FAIL')
 
   try:
     l.delete(1)
@@ -131,6 +137,7 @@ def test():
 
   l.remove(0)
   print('PASS' if l.to_array() == [] else 'FAIL')
+  print('PASS' if len(l) == 0 else 'FAIL')
 
 if __name__ == '__main__':
   test()
