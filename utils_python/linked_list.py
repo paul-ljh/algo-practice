@@ -1,5 +1,5 @@
 class Node:
-  def __init__(self, data, next_node):
+  def __init__(self, data, next_node = None):
     self.data = data
     self.next_node = next_node
 
@@ -7,6 +7,20 @@ class LinkedList:
   def __init__(self):
     self.head = None
     self.length = 0
+
+  def append(self, data):
+    n = Node(data)
+    self.length += 1
+
+    if self.head is None:
+      self.head = n
+      self.length += 1
+
+    l = self.head
+    while l.next_node is not None:
+      l = l.next_node
+    l.next_node = n
+    return
 
   def add(self, index, data):
     if index > self.length:
@@ -60,10 +74,11 @@ def test():
   l.add(0,1)
   l.add(0,2)
   l.add(1,3)
+  l.append(4)
   l.print()
 
   try:
-    l.add(4,4)
+    l.add(5,4)
   except Exception as e:
     print(e)
 
