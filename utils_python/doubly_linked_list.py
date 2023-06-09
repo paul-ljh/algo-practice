@@ -45,6 +45,17 @@ class DoublyLinkedList:
       return e
     raise KeyError(e)
 
+  def __iter__(self):
+    self.iter = self.head
+    return self
+
+  def __next__(self):
+    if self.iter is None:
+      raise StopIteration
+    result = self.iter
+    self.iter = self.iter.next
+    return result
+
 def test():
   l = DoublyLinkedList(list(range(4)))
 
@@ -52,6 +63,11 @@ def test():
     l.remove(5)
   except KeyError as e:
     print('PASS')
+
+  for index, node in enumerate(l):
+    if index > 0: print('PASS' if node.prev.data == index - 1 else 'FAIL')
+    print('PASS' if node.data == index else 'FAIL')
+    if index < 3: print('PASS' if node.next.data == index + 1 else 'FAIL')
 
   print('PASS' if l.remove(0) == 0 else 'FAIL')
   print('PASS' if l.remove(3) == 3 else 'FAIL')
