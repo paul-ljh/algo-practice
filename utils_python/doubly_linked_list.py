@@ -45,6 +45,29 @@ class DoublyLinkedList:
       return e
     raise KeyError(e)
 
+  def add_at_index(self, index, e):
+    if index not in range(self.length + 1):
+      raise IndexError(index)
+
+    n = Node(e)
+    i = 0
+    curr = self.head
+    prev = None
+    while i < index:
+      prev = curr
+      curr = curr.next
+      i += 1
+
+    if index != 0:
+      prev.next = n
+      n.prev = prev
+    if index != self.length:
+      n.next = curr
+      curr.prev = n
+    if index == 0: self.head = n
+    self.length += 1
+    return
+
   def compare_to_array(self, target):
     if len(target) == 0 and self.head is None: return True
 
@@ -102,6 +125,16 @@ def test():
     l.remove(5)
   except KeyError as e:
     print('PASS')
+
+  l = DoublyLinkedList()
+  l.add_at_index(0, 0)
+  print('PASS' if l.compare_to_array([0]) else 'FAIL')
+  l.add_at_index(0, 1)
+  print('PASS' if l.compare_to_array([1,0]) else 'FAIL')
+  l.add_at_index(2, 2)
+  print('PASS' if l.compare_to_array([1,0,2]) else 'FAIL')
+  l.add_at_index(1, 3)
+  print('PASS' if l.compare_to_array([1,3,0,2]) else 'FAIL')
 
 if __name__ == '__main__':
   test()
