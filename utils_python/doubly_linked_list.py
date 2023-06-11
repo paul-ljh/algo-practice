@@ -45,6 +45,25 @@ class DoublyLinkedList:
       return e
     raise KeyError(e)
 
+  def compare_to_array(self, target):
+    if len(target) == 0 and self.head is None: return True
+
+    l = self.head
+    for i in range(len(target)):
+      if target[i] != l.data: return False
+      if i < len(target) - 1: l = l.next
+    if l.next is not None:
+      return False
+
+    for i in reversed(range(len(target))):
+      if target[i] != l.data: return False
+      l = l.prev
+
+    if l is not None:
+      return False
+    else:
+      return True
+
   def __iter__(self):
     self.iter = self.head
     return self
@@ -58,6 +77,7 @@ class DoublyLinkedList:
 
 def test():
   l = DoublyLinkedList(list(range(4)))
+  print('PASS' if l.compare_to_array(list(range(4))) else 'FAIL')
 
   try:
     l.remove(5)
@@ -70,9 +90,13 @@ def test():
     if index < 3: print('PASS' if node.next.data == index + 1 else 'FAIL')
 
   print('PASS' if l.remove(0) == 0 else 'FAIL')
+  print('PASS' if l.compare_to_array(list(range(1,4))) else 'FAIL')
   print('PASS' if l.remove(3) == 3 else 'FAIL')
+  print('PASS' if l.compare_to_array(list(range(1,3))) else 'FAIL')
   print('PASS' if l.remove(2) == 2 else 'FAIL')
+  print('PASS' if l.compare_to_array(list(range(1,2))) else 'FAIL')
   print('PASS' if l.remove(1) == 1 else 'FAIL')
+  print('PASS' if l.compare_to_array(list(range(0))) else 'FAIL')
 
   try:
     l.remove(5)
