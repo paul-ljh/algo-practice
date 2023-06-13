@@ -68,6 +68,25 @@ class DoublyLinkedList:
     self.length += 1
     return
 
+  def remove_at_index(self, index):
+    if index not in range(self.length):
+      raise IndexError(index)
+
+    i = 0
+    l = self.head
+    while i < index:
+      l = l.next
+      i += 1
+
+    if index != 0:
+      l.prev.next = l.next
+    if index != self.length - 1:
+      l.next.prev = l.prev
+    if index == 0:
+      self.head = l.next
+    self.length -= 1
+    return
+
   def compare_to_array(self, target):
     if len(target) == 0 and self.head is None: return True
 
@@ -135,6 +154,16 @@ def test():
   print('PASS' if l.compare_to_array([1,0,2]) else 'FAIL')
   l.add_at_index(1, 3)
   print('PASS' if l.compare_to_array([1,3,0,2]) else 'FAIL')
+
+  l = DoublyLinkedList(list(range(4)))
+  l.remove_at_index(0)
+  print('PASS' if l.compare_to_array([1,2,3]) else 'FAIL')
+  l.remove_at_index(1)
+  print('PASS' if l.compare_to_array([1,3]) else 'FAIL')
+  l.remove_at_index(1)
+  print('PASS' if l.compare_to_array([1]) else 'FAIL')
+  l.remove_at_index(0)
+  print('PASS' if l.compare_to_array([]) else 'FAIL')
 
 if __name__ == '__main__':
   test()
