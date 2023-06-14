@@ -1,7 +1,7 @@
 class Node:
-  def __init__(self, data, next_node = None):
+  def __init__(self, data, next = None):
     self.data = data
-    self.next_node = next_node
+    self.next = next
 
 class LinkedList:
   def __init__(self):
@@ -16,7 +16,7 @@ class LinkedList:
     while l is not None:
       if l.data == data:
         return True
-      l = l.next_node
+      l = l.next
     return False
 
   def __iter__(self):
@@ -26,7 +26,7 @@ class LinkedList:
   def __next__(self):
     if self.iter is not None:
       result = self.iter.data
-      self.iter = self.iter.next_node
+      self.iter = self.iter.next
       return result
     raise StopIteration
 
@@ -35,7 +35,7 @@ class LinkedList:
     l = self.head
     while l is not None:
       result.append(l.data)
-      l = l.next_node
+      l = l.next
     return result
 
   def append(self, data):
@@ -47,9 +47,9 @@ class LinkedList:
       return
 
     l = self.head
-    while l.next_node is not None:
-      l = l.next_node
-    l.next_node = n
+    while l.next is not None:
+      l = l.next
+    l.next = n
     return
 
   def delete(self, data):
@@ -58,12 +58,12 @@ class LinkedList:
     while l is not None:
       if l.data != data:
         prev = l
-        l = l.next_node
+        l = l.next
         continue
       if prev is None:
-        self.head = self.head.next_node
+        self.head = self.head.next
       else:
-        prev.next_node = l.next_node
+        prev.next = l.next
       self.length -= 1
       return
     raise IndexError('Not found')
@@ -76,34 +76,34 @@ class LinkedList:
     i = 0
     while i < index:
       prev = curr
-      curr = curr.next_node
+      curr = curr.next
       i += 1
 
     n = Node(data, curr)
     if index == 0:
       self.head = n
     else:
-      prev.next_node = n
+      prev.next = n
 
     self.length += 1
     return True
 
   def remove(self, index):
-    if index >= self.length:
-      raise IndexError('Invalid index')
+    if index not in range(self.length):
+      raise IndexError(index)
 
     prev, curr = None, self.head
     i = 0
     while i < index:
       prev = curr
-      curr = curr.next_node
+      curr = curr.next
       i += 1
 
     return_data = curr.data
     if index == 0:
-      self.head = curr.next_node
+      self.head = self.head.next
     else:
-      prev.next_node = curr.next_node
+      prev.next = curr.next
 
     self.length -= 1
     return return_data
@@ -112,7 +112,7 @@ class LinkedList:
     tmp = self.head
     while tmp != None:
       print(tmp.data)
-      tmp = tmp.next_node
+      tmp = tmp.next
     print('None')
 
 def test():
