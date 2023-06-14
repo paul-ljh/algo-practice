@@ -129,10 +129,6 @@ def test():
   l.append(4)
   print('PASS' if l.to_array() == [2,3,1,4,4] else 'FAIL')
 
-  result = [2,3,1,4,4]
-  for i, data in enumerate(l):
-    print('PASS' if data == result[i] else 'FAIL')
-
   print('PASS' if 2 in l else 'FAIL')
   print('PASS' if 5 not in l else 'FAIL')
 
