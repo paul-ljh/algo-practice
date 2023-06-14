@@ -69,8 +69,8 @@ class LinkedList:
     raise IndexError('Not found')
 
   def add(self, index, data):
-    if index > self.length:
-      raise IndexError('Invalid index')
+    if index not in range(self.length + 1):
+      raise IndexError(index)
 
     prev, curr = None, self.head
     i = 0
@@ -166,6 +166,16 @@ def test():
   l.remove(0)
   print('PASS' if l.to_array() == [] else 'FAIL')
   print('PASS' if len(l) == 0 else 'FAIL')
+
+  l = LinkedList()
+  l.add(0,0)
+  print('PASS' if l.to_array() == [0] else 'FAIL')
+  l.add(0,1)
+  print('PASS' if l.to_array() == [1,0] else 'FAIL')
+  l.add(2,2)
+  print('PASS' if l.to_array() == [1,0,2] else 'FAIL')
+  l.add(1,3)
+  print('PASS' if l.to_array() == [1,3,0,2] else 'FAIL')
 
 if __name__ == '__main__':
   test()
