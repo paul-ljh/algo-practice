@@ -3,7 +3,6 @@ Array:
 https://leetcode.com/problems/h-index/
 
 Stack & Queue:
-https://leetcode.com/problems/longest-valid-parentheses/
 
 DP:
 
@@ -14,7 +13,8 @@ Linked List:
 Design:
 
 Graph:
-https://leetcode.com/problems/number-of-nodes-in-the-sub-tree-with-the-same-label/
+https://leetcode.com/problems/couples-holding-hands/
+https://leetcode.com/problems/pacific-atlantic-water-flow/
 
 Bit:
 '''
