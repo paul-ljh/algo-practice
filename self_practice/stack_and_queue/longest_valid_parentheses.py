@@ -5,19 +5,21 @@ Given a string containing just the characters '(' and ')', return the length of 
 substring.
 '''
 
-def longest_valid_parentheses(str):
-  stack = [-1]
+def longest_valid_parentheses(s):
+  stack = []
   max_so_far = 0
-  for i in range(len(str)):
-    curr = str[i]
-    if curr == '(':
+  start_index = -1
+
+  for i in range(len(s)):
+    curr_char = s[i]
+    if curr_char == '(':
       stack.append(i)
+    elif len(stack) == 0:
+      start_index = i
     else:
       stack.pop()
-      if len(stack) == 0:
-        stack.append(i)
-      else:
-        max_so_far = max(max_so_far, i - stack[-1])
+      d = i - (start_index if len(stack) == 0 else stack[-1])
+      max_so_far = max(max_so_far, d)
   return max_so_far
 
 def test():
