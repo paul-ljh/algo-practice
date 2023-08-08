@@ -49,3 +49,22 @@ class MinHeap:
       return self.find_rightmost_node_parent(root.left, (num_nodes_above - 1) // 2 + num_nodes_last_level // 2)
     else:
       return self.find_rightmost_node_parent(root.left, (num_nodes_above - 1) // 2 + target_index - num_nodes_last_level // 2)
+
+  def sort_heap(self, root, queue):
+    child = root.left if queue.get() == 0 else root.right
+    if queue.empty():
+      if child.data < root.data:
+        temp = child.data
+        child.data = root.data
+        root.data = temp
+        return True
+      return False
+    else:
+      result = self.sort_heap(child, queue)
+      if not result or root.data < child.data:
+        return result
+      else:
+        temp = child.data
+        child.data = root.data
+        root.data = temp
+        return True
