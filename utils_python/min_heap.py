@@ -63,6 +63,10 @@ class MinHeap:
       direction_queue.put(1)
       return self.find_rightmost_node_parent(root.right, (num_nodes_above - 1) // 2 + target_index - num_nodes_last_level // 2, direction_queue)
 
+  '''
+  The idea here is to follow the direction queue items to locate the element that was previous inserted.
+  As recusion calls pop off the stack, we swap parent and child if applicable.
+  '''
   def sort_heap(self, root, queue):
     child = root.left if queue.get() == 0 else root.right
     if queue.empty():
