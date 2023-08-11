@@ -3,7 +3,7 @@ class QueueNode:
     self.data = data
     self.next_node = next_node
 
-class Queue:
+class PQueue:
   def __init__(self):
     self.first = None
     self.last = None
@@ -35,7 +35,7 @@ class Queue:
     return data_to_return
 
 def test():
-  q = Queue()
+  q = PQueue()
   try:
     q.remove()
   except IndexError:
