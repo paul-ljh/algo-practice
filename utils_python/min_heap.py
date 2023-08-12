@@ -8,6 +8,12 @@ class MinHeap:
       self.left = left
       self.right = right
 
+    def is_leaf(self):
+      return self.left is None and self.right is None
+
+    def is_single_parent(self):
+      return not self.is_leaf() and (self.left is None or self.right is None)
+
   def __init__(self):
     self.root = None
     self.size = 0
@@ -23,7 +29,7 @@ class MinHeap:
       return
 
     q = SimpleQueue()
-    parent = self.find_rightmost_node_parent(self.root, self.size, q)
+    parent = self.find_leftmost_node_parent(self.root, self.size, q)
     if parent.left is None:
       parent.left = node
     else:
@@ -33,7 +39,7 @@ class MinHeap:
     self.sort_heap(self.root, q)
     return
 
-  def find_rightmost_node_parent(self, root, size, direction_queue):
+  def find_leftmost_node_parent(self, root, size, direction_queue):
     if root.left is None or root.right is None:
       direction_queue.put(0 if root.left is None else 1)
       return root
@@ -55,13 +61,13 @@ class MinHeap:
     '''
     if target_index < num_nodes_last_level // 2:
       direction_queue.put(0)
-      return self.find_rightmost_node_parent(root.left, (num_nodes_above - 1) // 2 + target_index, direction_queue)
+      return self.find_leftmost_node_parent(root.left, (num_nodes_above - 1) // 2 + target_index, direction_queue)
     elif target_index == num_nodes_last_level:
       direction_queue.put(0)
-      return self.find_rightmost_node_parent(root.left, (num_nodes_above - 1) // 2 + num_nodes_last_level // 2, direction_queue)
+      return self.find_leftmost_node_parent(root.left, (num_nodes_above - 1) // 2 + num_nodes_last_level // 2, direction_queue)
     else:
       direction_queue.put(1)
-      return self.find_rightmost_node_parent(root.right, (num_nodes_above - 1) // 2 + target_index - num_nodes_last_level // 2, direction_queue)
+      return self.find_leftmost_node_parent(root.right, (num_nodes_above - 1) // 2 + target_index - num_nodes_last_level // 2, direction_queue)
 
   '''
   The idea here is to follow the direction queue items to locate the element that was previous inserted.
@@ -85,6 +91,37 @@ class MinHeap:
         child.data = root.data
         root.data = temp
         return True
+
+  def remove_min(self):
+    if self.root is None:
+      raise IndexError
+
+    # swap root and leftmost leaf node
+    node = self.find_leftmost_node_parent(self.root, self.size, SimpleQueue())
+    if node.right:
+      data_to_swap = node.right.data
+      node.right = None
+    else:
+      data_to_swap = node.left.data
+      node.left = None
+
+    data_to_return = self.root.data
+    self.root.data = data_to_swap
+    self.sort_from_root_node(self.root)
+    return data_to_return
+
+  def sort_from_root_node(self, node):
+    if node is None or node.is_leaf():
+      return
+
+    should_swap = node.data > node.left.data or (node.right and node.data > node.right.data)
+    if not should_swap: return
+
+    node_to_swap = node.left if node.is_single_parent() or node.left.data < node.right.data else node.right
+    temp = node.data
+    node.data = node_to_swap.data
+    node_to_swap.data = temp
+    return self.sort_from_root_node(node_to_swap)
 
 def test():
   mh = MinHeap()
