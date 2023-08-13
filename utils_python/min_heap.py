@@ -39,6 +39,10 @@ class MinHeap:
     self.sort_heap(self.root, q)
     return
 
+  '''
+  This function locates the parent node of the node of index "size" in a tree rooted at "root",
+  returns a direction queue holds the instructions on how to traver from the root to the target node, 0 - left, 1 - right
+  '''
   def find_leftmost_node_parent(self, root, size, direction_queue):
     if root.left is None or root.right is None:
       direction_queue.put(0 if root.left is None else 1)
@@ -56,8 +60,6 @@ class MinHeap:
     - the number of nodes on the last level of the heap
     - the index of the to-be-inserted node relative to the last level of the heap
     If index is in the left half, go left; if the index is in the right half, go right; if the index is equal to the node count, meaning the to-be-inserted node will go onto a new level, go left.
-
-    Direction queue holds the instructions on how to traver from the root to the target node, 0 - left, 1 - right
     '''
     if target_index < num_nodes_last_level // 2:
       direction_queue.put(0)
@@ -84,7 +86,7 @@ class MinHeap:
       return False
     else:
       result = self.sort_heap(child, queue)
-      if not result or root.data < child.data:
+      if not result or root.data <= child.data:
         return result
       else:
         temp = child.data
@@ -97,7 +99,7 @@ class MinHeap:
       raise IndexError
 
     # swap root and leftmost leaf node
-    node = self.find_leftmost_node_parent(self.root, self.size, SimpleQueue())
+    node = self.find_leftmost_node_parent(self.root, self.size - 1, SimpleQueue())
     if node.right:
       data_to_swap = node.right.data
       node.right = None
@@ -105,6 +107,7 @@ class MinHeap:
       data_to_swap = node.left.data
       node.left = None
 
+    self.size -= 1
     data_to_return = self.root.data
     self.root.data = data_to_swap
     self.sort_from_root_node(self.root)
@@ -126,9 +129,12 @@ class MinHeap:
 def test():
   mh = MinHeap()
 
-  for i in reversed(range(10)):
+  for i in reversed(range(11)):
     mh.insert(i)
     print('PASS' if mh.peek() == i else 'FAIL')
+
+  for i in range(11):
+    print('PASS' if mh.remove_min() == i else 'FAIL')
 
 if __name__ == '__main__':
   test()
