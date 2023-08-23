@@ -71,6 +71,25 @@ class MinHeap:
       direction_queue.put(1)
       return self.find_leftmost_node_parent(root.right, (num_nodes_above - 1) // 2 + target_index - num_nodes_last_level // 2, direction_queue)
 
+  def find_node_parent_by_index(self, node, index, direction_queue):
+    num_level = floor(log(index, 2))
+    num_nodes_above = pow(2, num_level) - 1
+    num_nodes_last_level = pow(2, num_level)
+    target_index = index - num_nodes_above
+
+    if target_index < num_nodes_last_level // 2:
+      new_node, new_index, direction = node.left, (num_nodes_above - 1) // 2 + target_index, 0
+    elif target_index == num_nodes_last_level:
+      new_node, new_index, direction = node.left, (num_nodes_above - 1) // 2 + num_nodes_last_level // 2, 0
+    else:
+      new_node, new_index, direction = node.right, (num_nodes_above - 1) // 2 + target_index - num_nodes_last_level // 2, 1
+
+    if new_index == 0:
+      return node
+    else:
+      direction_queue.put(direction)
+      return self.find_node_parent_by_index(new_node, new_index, direction_queue)
+
   '''
   The idea here is to follow the direction queue items to locate the element that was previous inserted.
   As recusion calls pop off the stack, we swap parent and child if applicable.
@@ -98,19 +117,29 @@ class MinHeap:
     if self.root is None:
       raise IndexError
 
-    # swap root and leftmost leaf node
-    node = self.find_leftmost_node_parent(self.root, self.size - 1, SimpleQueue())
-    if node.right:
-      data_to_swap = node.right.data
-      node.right = None
+    data_to_return = self.root.data
+    if self.size == 1:
+      self.root = None
+      self.size -= 1
+      return data_to_return
+
+    parent = self.root
+    directions = self.get_direction_to_node_at_index(self.size - 1)
+    while directions.qsize() > 1:
+      d = directions.get()
+      parent = parent.left if d == 0 else parent.right
+
+    d = directions.get()
+    if d == 1:
+      data_to_swap = parent.right.data
+      parent.right = None
     else:
-      data_to_swap = node.left.data
-      node.left = None
+      data_to_swap = parent.left.data
+      parent.left = None
 
     self.size -= 1
-    data_to_return = self.root.data
     self.root.data = data_to_swap
-    self.sort_from_root_node(self.root)
+    # self.sort_from_root_node(self.root)
     return data_to_return
 
   def sort_from_root_node(self, node):
@@ -126,15 +155,35 @@ class MinHeap:
     node_to_swap.data = temp
     return self.sort_from_root_node(node_to_swap)
 
+  @staticmethod
+  def get_direction_to_node_at_index(index):
+    if index == 0:
+      return SimpleQueue()
+    direction = int(index % 2 == 0)
+    parent_index = (index - (2 if direction else 1)) // 2
+    queue = MinHeap.get_direction_to_node_at_index(parent_index)
+    queue.put(direction)
+    return queue
+
+def queue_to_array(queue):
+  result = []
+  while not queue.empty(): result.append(queue.get_nowait())
+  return result
+
+def get_direction_to_node_at_index_test():
+  test_data = {
+    1: [0],
+    2: [1],
+    4: [0,1],
+    5: [1,0],
+    7: [0,0,0],
+  }
+
+  for k, v in test_data.items():
+    print('PASS' if queue_to_array(MinHeap.get_direction_to_node_at_index(k)) == v else 'FAIL')
+
 def test():
-  mh = MinHeap()
-
-  for i in reversed(range(11)):
-    mh.insert(i)
-    print('PASS' if mh.peek() == i else 'FAIL')
-
-  for i in range(11):
-    print('PASS' if mh.remove_min() == i else 'FAIL')
+  get_direction_to_node_at_index_test()
 
 if __name__ == '__main__':
   test()
