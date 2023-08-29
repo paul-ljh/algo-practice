@@ -28,50 +28,25 @@ class MinHeap:
       self.size += 1
       return
 
-    q = SimpleQueue()
-    parent = self.find_leftmost_node_parent(self.root, self.size, q)
-    if parent.left is None:
+    direction_q = MinHeap.get_direction_to_node_at_index(self.size)
+    another_direction_q = SimpleQueue()
+    parent = self.root
+    while direction_q.qsize() > 1:
+      d = direction_q.get_nowait()
+      another_direction_q.put_nowait(d)
+      parent = parent.left if d == 0 else parent.right
+    else:
+      d = direction_q.get_nowait()
+      another_direction_q.put_nowait(d)
+
+    if d == 0:
       parent.left = node
     else:
       parent.right = node
     self.size += 1
 
-    self.sort_heap(self.root, q)
+    self.sort_heap(self.root, another_direction_q)
     return
-
-  '''
-  This function locates the parent node of the node of index "size" in a tree rooted at "root",
-  returns a direction queue holds the instructions on how to traver from the root to the target node, 0 - left, 1 - right
-  '''
-  def find_leftmost_node_parent(self, root, size, direction_queue):
-    if root.left is None or root.right is None:
-      direction_queue.put(0 if root.left is None else 1)
-      return root
-
-    # 0 based
-    num_level = floor(log(size, 2))
-    num_nodes_above = pow(2, num_level) - 1
-    num_nodes_last_level = pow(2, num_level)
-    target_index = size - num_nodes_above
-
-    '''
-    The idea here is to determine whether to go left or right based on the number of nodes in the heap.
-    Caculate:
-    - the number of nodes on the last level of the heap
-    - the index of the to-be-inserted node relative to the last level of the heap
-    If index is in the left half, go left; if the index is in the right half, go right; if the index is equal to the node count, meaning the to-be-inserted node will go onto a new level, go left.
-    '''
-    if target_index < num_nodes_last_level // 2:
-      direction_queue.put(0)
-      return self.find_leftmost_node_parent(root.left, (num_nodes_above - 1) // 2 + target_index, direction_queue)
-    elif target_index == num_nodes_last_level:
-      direction_queue.put(0)
-      return self.find_leftmost_node_parent(root.left, (num_nodes_above - 1) // 2 + num_nodes_last_level // 2, direction_queue)
-    else:
-      direction_queue.put(1)
-      return self.find_leftmost_node_parent(root.right, (num_nodes_above - 1) // 2 + target_index - num_nodes_last_level // 2, direction_queue)
-
-  def find_node_parent_by_index(self, node, index, direction_queue):
     num_level = floor(log(index, 2))
     num_nodes_above = pow(2, num_level) - 1
     num_nodes_last_level = pow(2, num_level)
@@ -95,7 +70,7 @@ class MinHeap:
   As recusion calls pop off the stack, we swap parent and child if applicable.
   '''
   def sort_heap(self, root, queue):
-    child = root.left if queue.get() == 0 else root.right
+    child = root.left if queue.get_nowait() == 0 else root.right
     if queue.empty():
       if child.data < root.data:
         temp = child.data
@@ -155,6 +130,12 @@ class MinHeap:
     node_to_swap.data = temp
     return self.sort_from_root_node(node_to_swap)
 
+  '''
+  Returns a queue holds the instructions on how to travel from the root to the target node, 0 - left, 1 - right
+  This function is based off the principle that:
+  - left child index == parent index * 2 + 1
+  - right child index == parent index * 2 + 2
+  '''
   @staticmethod
   def get_direction_to_node_at_index(index):
     if index == 0:
@@ -182,8 +163,15 @@ def get_direction_to_node_at_index_test():
   for k, v in test_data.items():
     print('PASS' if queue_to_array(MinHeap.get_direction_to_node_at_index(k)) == v else 'FAIL')
 
+def insert_test():
+  mh = MinHeap()
+  for i in reversed(range(7)):
+    mh.insert(i)
+    print('PASS' if mh.peek() == i else 'FAIL')
+
 def test():
   get_direction_to_node_at_index_test()
+  insert_test()
 
 if __name__ == '__main__':
   test()
