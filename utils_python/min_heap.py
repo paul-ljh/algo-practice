@@ -31,6 +31,8 @@ class MinHeap:
     direction_q = MinHeap.get_direction_to_node_at_index(self.size)
     another_direction_q = SimpleQueue()
     parent = self.root
+
+    # Stop at the parent of the position you are trying to insert
     while direction_q.qsize() > 1:
       d = direction_q.get_nowait()
       another_direction_q.put_nowait(d)
@@ -80,6 +82,10 @@ class MinHeap:
       return False
     else:
       result = self.sort_heap(child, queue)
+      '''
+      If your child did not swap, then there is the min heap property is preserved automatically.
+      If your child did swap, then you wanna check whether your child is smaller than you.
+      '''
       if not result or root.data <= child.data:
         return result
       else:
