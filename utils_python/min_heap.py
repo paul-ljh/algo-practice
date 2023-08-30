@@ -19,6 +19,7 @@ class MinHeap:
     self.size = 0
 
   def peek(self):
+    if self.root is None: raise IndexError
     return self.root.data
 
   def insert(self, data):
@@ -47,7 +48,7 @@ class MinHeap:
       parent.right = node
     self.size += 1
 
-    self.sort_heap(self.root, another_direction_q)
+    MinHeap.sort_heap(self.root, another_direction_q)
     return
     num_level = floor(log(index, 2))
     num_nodes_above = pow(2, num_level) - 1
@@ -71,7 +72,8 @@ class MinHeap:
   The idea here is to follow the direction queue items to locate the element that was previous inserted.
   As recusion calls pop off the stack, we swap parent and child if applicable.
   '''
-  def sort_heap(self, root, queue):
+  @staticmethod
+  def sort_heap(root, queue):
     child = root.left if queue.get_nowait() == 0 else root.right
     if queue.empty():
       if child.data < root.data:
@@ -81,7 +83,7 @@ class MinHeap:
         return True
       return False
     else:
-      result = self.sort_heap(child, queue)
+      result = MinHeap.sort_heap(child, queue)
       '''
       If your child did not swap, then there is the min heap property is preserved automatically.
       If your child did swap, then you wanna check whether your child is smaller than you.
@@ -120,10 +122,11 @@ class MinHeap:
 
     self.size -= 1
     self.root.data = data_to_swap
-    # self.sort_from_root_node(self.root)
+    MinHeap.sort_from_root_node(self.root)
     return data_to_return
 
-  def sort_from_root_node(self, node):
+  @staticmethod
+  def sort_from_root_node(node):
     if node is None or node.is_leaf():
       return
 
@@ -134,7 +137,7 @@ class MinHeap:
     temp = node.data
     node.data = node_to_swap.data
     node_to_swap.data = temp
-    return self.sort_from_root_node(node_to_swap)
+    return MinHeap.sort_from_root_node(node_to_swap)
 
   '''
   Returns a queue holds the instructions on how to travel from the root to the target node, 0 - left, 1 - right
@@ -175,9 +178,18 @@ def insert_test():
     mh.insert(i)
     print('PASS' if mh.peek() == i else 'FAIL')
 
+def remove_min_test():
+  mh = MinHeap()
+  for i in range(7):
+    mh.insert(i)
+
+  for i in range(7):
+    print('PASS' if mh.remove_min() == i else 'FAIL')
+
 def test():
   get_direction_to_node_at_index_test()
   insert_test()
+  remove_min_test()
 
 if __name__ == '__main__':
   test()
