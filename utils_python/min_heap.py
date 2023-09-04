@@ -50,23 +50,6 @@ class MinHeap:
 
     MinHeap.sort_heap(self.root, another_direction_q)
     return
-    num_level = floor(log(index, 2))
-    num_nodes_above = pow(2, num_level) - 1
-    num_nodes_last_level = pow(2, num_level)
-    target_index = index - num_nodes_above
-
-    if target_index < num_nodes_last_level // 2:
-      new_node, new_index, direction = node.left, (num_nodes_above - 1) // 2 + target_index, 0
-    elif target_index == num_nodes_last_level:
-      new_node, new_index, direction = node.left, (num_nodes_above - 1) // 2 + num_nodes_last_level // 2, 0
-    else:
-      new_node, new_index, direction = node.right, (num_nodes_above - 1) // 2 + target_index - num_nodes_last_level // 2, 1
-
-    if new_index == 0:
-      return node
-    else:
-      direction_queue.put(direction)
-      return self.find_node_parent_by_index(new_node, new_index, direction_queue)
 
   '''
   The idea here is to follow the direction queue items to locate the element that was previous inserted.
