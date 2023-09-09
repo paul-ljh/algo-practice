@@ -23,6 +23,11 @@ def kth_helper(node, target):
   else:
     return (None, l_further - 1) if node.right is None else kth_helper(node.right, l_further - 1)
 
+'''
+The idea here is:
+- stack s holds nodes that you need to traverse leftward
+- stack return_s hold your ancestor nodes that you have traversed
+'''
 def kth_smallest_iteration(node, k):
   s, return_s = [], []
   s.append(node)
