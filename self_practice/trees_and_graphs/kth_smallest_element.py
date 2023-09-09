@@ -22,3 +22,23 @@ def kth_helper(node, target):
     return (node.val, None)
   else:
     return (None, l_further - 1) if node.right is None else kth_helper(node.right, l_further - 1)
+
+def kth_smallest_iteration(node, k):
+  s, return_s = [], []
+  s.append(node)
+  i = 0
+  while len(s) > 0:
+    n = s.pop()
+    return_s.append(n)
+    if n.left:
+      s.append(n.left)
+      continue
+
+    while len(return_s) > 0:
+      r = return_s.pop()
+      i += 1
+      if i == k:
+        return r.data
+      if r.right:
+        s.append(r.right)
+        break
