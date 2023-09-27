@@ -27,35 +27,24 @@ class Trie:
       if index == len(word) - 1:
         if len(self.children[char].children) == 0:
           self.children.pop(char)
-        return
+        return True
       else:
         return self.children[char].remove(word, index + 1)
 
   def __init__(self):
-    self.root = {}
+    self.root = self.TrieNode(None)
 
   def insert(self, word):
     if not word: return
-
-    char = word[0]
-    if char not in self.root:
-      self.root[char] = self.TrieNode(char)
-    self.root[char].insert(word, 1)
+    self.root.insert(word, 0)
 
   def search(self, word):
     if not word: return True
-
-    char = word[0]
-    if char not in self.root:
-      return False
-    return self.root[char].search(word, 1)
+    return self.root.search(word, 0)
 
   def remove(self, word):
-      if not word: return
-      char = word[0]
-      if char not in self.root:
-        return False
-      return self.root[char].remove(word, 1)
+    if not word: return
+    return self.root.remove(word, 0)
 
 def test_insert_and_search():
   t = Trie()
@@ -91,3 +80,4 @@ def test_remove_and_search():
 
 if __name__ == '__main__':
   test_insert_and_search()
+  test_remove_and_search()
